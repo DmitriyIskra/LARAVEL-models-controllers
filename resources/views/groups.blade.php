@@ -6,10 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <pre>
-        {{data}}
-    </pre>
     <div>Создание новой группы</div>
-    <a href="/groups/create" class="href"></a>
+    <a href="/groups/create" class="href">CREATE NEW GROUP</a>
+    <h1>Список групп</h1>
+    <ul>
+        @foreach ($groups as $value)
+        <li><a href="{{'/groups/'.$value->id}}">{{ $value->title }}</a></li>
+        @endforeach
+    </ul>
 </body>
 </html>

@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Models\Group as GroupModel;
+use App\Models\Student;
+use Illuminate\Http\Client\Response;
 
-class group extends Controller
+class Group extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = GroupModel::where('title')->all();
+        $data = GroupModel::query()->get(['title', 'id']);
 
-        
+        return view('groups', [
+            'groups' => $data,
+        ]);
     }
 
     /**
@@ -22,7 +27,7 @@ class group extends Controller
      */
     public function create()
     {
-        //
+        return view('create-group');
     }
 
     /**
@@ -30,15 +35,29 @@ class group extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(isset($request->title)) {
+            GroupModel::query()->create([
+                "title" => "$request->title",
+                "start_from" => "$request->start_from",
+            ]);
+        }
+
+        return redirect('/');
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $data = GroupModel::query()->where('id', $id)->first();
+        $students = Student::query()->where('group_id', $id)->get();
+
+        return view('group-id', [
+            "data" => $data,
+            "students" => $students,
+        ]);
     }
 
     /**
@@ -47,6 +66,7 @@ class group extends Controller
     public function edit(string $id)
     {
         //
+
     }
 
     /**

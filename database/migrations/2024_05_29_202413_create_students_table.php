@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->integer('student_id')->default(0);
+            $table->integer('student_id')->unsigned();
 
             $table->foreignId('group_id')->constrained('groups');
 

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student as ModelsStudent;
 use Illuminate\Http\Request;
 
-class student extends Controller
+class Student extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,25 +18,37 @@ class student extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id)
     {
-        //
+        return view('create-student', [
+            'id' => $id,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, string $id)
     {
-        //
+        ModelsStudent::query()->create([
+            'group_id' => $id,
+            'surname' => $request->surname,
+            'name' => $request->name,
+        ]);
+
+        return redirect("/groups/$id");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, string $student_id)
     {
-        //
+        $data = ModelsStudent::query()->where('id', $student_id)->first();
+
+        return view('student-id', [
+            'data' => $data,
+        ]);
     }
 
     /**
