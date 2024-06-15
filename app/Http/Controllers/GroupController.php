@@ -8,7 +8,7 @@ use App\Models\Group as GroupModel;
 use App\Models\Student;
 use Illuminate\Http\Client\Response;
 
-class Group extends Controller
+class GroupController extends Controller
 {
     /**
      * Display a listing of the resource.

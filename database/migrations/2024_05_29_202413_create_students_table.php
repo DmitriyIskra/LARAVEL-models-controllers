@@ -17,8 +17,8 @@ return new class extends Migration
 
             $table->foreignId('group_id')->constrained('groups');
 
-            $table->string('surname')->default('');
-            $table->string('name')->default('');
+            $table->string('surname');
+            $table->string('name');
             $table->timestamps();  
         });
     }
